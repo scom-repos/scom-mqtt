@@ -20,7 +20,7 @@ define("@scom/scom-mqtt", ["require", "exports"], function (require, exports) {
             this.config = config;
             this.subscriptions = [];
             const mqtt = determineMqttType();
-            this.client = mqtt.connect(config.brokerUrl);
+            this.client = mqtt.connect(config.brokerUrl, config.mqttClientOptions);
             if (config.subscriptions) {
                 this.subscribe(config.subscriptions);
             }

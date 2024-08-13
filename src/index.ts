@@ -11,8 +11,14 @@ function determineMqttType() {
 	};
 };
 
+interface IMqttClientOptions {
+	username: string;
+	password: string;
+}
+
 interface IMqttManagerConfig {
     brokerUrl: string;
+    mqttClientOptions?: IMqttClientOptions;
     subscriptions?: string[];
     connectCallback?: () => void;
     errorCallback?: (error: any) => void;
@@ -25,7 +31,7 @@ class MqttManager {
 
     constructor(private config: IMqttManagerConfig) {
         const mqtt = determineMqttType();
-        this.client = mqtt.connect(config.brokerUrl);
+        this.client = mqtt.connect(config.brokerUrl, config.mqttClientOptions);
         if (config.subscriptions) {
             this.subscribe(config.subscriptions);
         }
@@ -90,5 +96,7 @@ class MqttManager {
 }
 
 export {
+    IMqttClientOptions,
+    IMqttManagerConfig,
     MqttManager
 }

@@ -1,7 +1,12 @@
 /// <amd-module name="@scom/scom-mqtt" />
 declare module "@scom/scom-mqtt" {
+    interface IMqttClientOptions {
+        username: string;
+        password: string;
+    }
     interface IMqttManagerConfig {
         brokerUrl: string;
+        mqttClientOptions?: IMqttClientOptions;
         subscriptions?: string[];
         connectCallback?: () => void;
         errorCallback?: (error: any) => void;
@@ -17,5 +22,5 @@ declare module "@scom/scom-mqtt" {
         publish(topic: string, message: string): void;
         disconnect(): void;
     }
-    export { MqttManager };
+    export { IMqttClientOptions, IMqttManagerConfig, MqttManager };
 }
